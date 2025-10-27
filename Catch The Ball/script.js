@@ -53,7 +53,7 @@ function update() {
     score++;
     resetBall();
     // Aumenta un poco la dificultad cada 5 puntos
-    if (score % 5 === 0) ball.speed += 0.5;
+    if (score % 3 === 0) ball.speed += 0.4;
   }
 
   // 🚫 Si la bola cae fuera del canvas
