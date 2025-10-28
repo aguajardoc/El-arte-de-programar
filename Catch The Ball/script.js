@@ -52,8 +52,7 @@ function update() {
   ) {
     score++;
     resetBall();
-    // Aumenta un poco la dificultad cada 3 puntos
-    if (score % 3 === 0) ball.speed += 0.4;
+    // Aumenta un poco la dificultad cada 5 puntos
     if (score % 5 === 0 && ball.radius > 5) {
         ball.radius -= 2;
       }
