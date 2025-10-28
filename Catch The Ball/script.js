@@ -64,13 +64,13 @@ function update() {
     alert(`💀 Game Over! Score: ${score}`);
     score = 0;
     ball.speed = 3;
+    ball.radius = 15;
     resetBall();
   }
 }
 
 // 🔁 Reinicia la bola desde arriba
 function resetBall() {
-  ball.radius = 15;
   ball.x = Math.random() * (canvas.width - ball.radius * 2) + ball.radius;
   ball.y = 0;
 }
