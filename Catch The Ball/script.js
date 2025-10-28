@@ -114,6 +114,9 @@ function update() {
     if (score % 5 === 0) {
       const sign = ball.vy < 0 ? -1 : 1;
       ball.vy += sign * 0.5;
+      if (ball.radius > 5) {
+        ball.radius -= 1;
+      }
     }
     
     // ⭐ AÑADIDO: Lógica para llamar a la estrella
