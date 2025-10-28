@@ -71,9 +71,11 @@ function update() {
     score++;
     // Rebotar: invertir vy y asegurarse que salga hacia arriba
     ball.vy = -Math.abs(ball.vy);
+
     // Aumentar ligeramente la velocidad para más dificultad
     ball.vy *= 1.05;
     ball.vx *= 1.02;
+    
     // reposicionar justo encima para evitar engancharse
     ball.y = catcher.y - ball.radius - 1;
 
