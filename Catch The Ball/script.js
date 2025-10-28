@@ -74,12 +74,32 @@ function update() {
     ball.vy = -ball.vy;
   }
 
+  // ⭐ INICIO: LÓGICA DE LA ESTRELLA (AÑADIDO) ⭐
+  if (star.active) {
+    // 1. Mover la estrella hacia abajo
+    star.y += star.speed;
+
+    // 2. Comprobar colisión (Estrella vs Catcher)
+    if (circleRectCollision(star.x, star.y, star.radius, catcher.x, catcher.y, catcher.width, catcher.height)) {
+      score += 5; // ¡Bonus de 10 puntos!
+      star.active = false; // Desactivar al atraparla
+    }
+    // 3. Comprobar si se salió de la pantalla
+    else if (star.y - star.radius > canvas.height) {
+      star.active = false; // Desactivar si se pierde
+    }
+  }
+  // ⭐ FIN: LÓGICA DE LA ESTRELLA ⭐
+
+
   // Actualiza la posición del catcher
   catcher.x = mouseX - catcher.width / 2;
 
   // 🧮 Detección de colisión (bola vs catcher)
   if (ball.vy > 0 && circleRectCollision(ball.x, ball.y, ball.radius, catcher.x, catcher.y, catcher.width, catcher.height)) {
     score++;
+    ballsCaught++; // <-- AÑADIDO (para incrementar el contador)
+
     // Rebotar: invertir vy y asegurarse que salga hacia arriba
     ball.vy = -Math.abs(ball.vy);
 
@@ -95,6 +115,12 @@ function update() {
       const sign = ball.vy < 0 ? -1 : 1;
       ball.vy += sign * 0.5;
     }
+    
+    // ⭐ AÑADIDO: Lógica para llamar a la estrella
+    // Si atrapamos 5 bolas Y no hay otra estrella activa
+    if (ballsCaught % 5 === 0 && !star.active) {
+        spawnStar();
+    }
   }
 
   // 🚫 Si la bola cae fuera del canvas por abajo -> Game Over
@@ -102,8 +128,9 @@ function update() {
     alert(`💀 Game Over! Score: ${score}`);
     score = 0;
     ballsCaught = 0;
-    ball.speed = 3;
+    // ball.speed = 3; // Esta propiedad no existe en 'ball'
     ball.radius = 15;
+    star.active = false; // <-- AÑADIDO (para resetear la estrella)
     resetBall();
   }
 }
@@ -120,7 +147,8 @@ function resetBall() {
 function spawnStar() {
   star.x = Math.random() * (canvas.width - star.radius * 2) + star.radius;
   star.y = 0;
-  star.speed = Math.max(ball.speed + 2, 5); // siempre más rápida que la bola
+  // <-- MODIFICADO (para usar ball.vy en lugar de ball.speed)
+  star.speed = Math.max(Math.abs(ball.vy) + 2, 5); 
   star.active = true;
 }
 
