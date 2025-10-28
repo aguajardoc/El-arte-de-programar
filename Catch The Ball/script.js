@@ -90,9 +90,8 @@ function update() {
   if (ball.y - ball.radius > canvas.height) {
     alert(`💀 Game Over! Score: ${score}`);
     score = 0;
-    // reiniciar velocidades
-    ball.vx = (Math.random() * 4) - 2;
-    ball.vy = 3;
+    ball.speed = 3;
+    ball.radius = 15;
     resetBall();
   }
 }
