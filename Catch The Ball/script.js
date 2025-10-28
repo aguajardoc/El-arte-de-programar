@@ -70,6 +70,7 @@ function update() {
 
 // 🔁 Reinicia la bola desde arriba
 function resetBall() {
+  ball.radius = 15;
   ball.x = Math.random() * (canvas.width - ball.radius * 2) + ball.radius;
   ball.y = 0;
 }
